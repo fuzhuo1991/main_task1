@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit"><!--默认极速模式-->
+    <meta name="renderer" content="webkit|ie-comp|ie-stand"><!--默认极速模式-->
+    <title></title>
+
+    <script src="layui/layui.js"></script>
+</head>
+<body>
+<div id="from">
+    <input  value="">
+    <input data-bind="2" value="222">
+    <input data-bind="3" value="">
+    <input data-bind="4" value="">
+    <input data-bind="5" value="">
+</div>
+
+<div>
+    <h1>Click</h1>
+    <button class="add">Click me to add new item</button>
+    <ul class="li">
+        <li>I am old item.<button class="delete">Delete</button></li>
+        <li>I am old item.<button class="delete">Delete</button></li>
+        <li>I am old item.<button class="delete">Delete</button></li>
+    </ul>
+</div>
+<button>123</button>
+</body>
+<script>
+layui.config({
+    base: '/main_task_中/layuidemo/layui/lay/modules/' //假设这是你存放拓展模块的根目录
+}).extend({ //设定模块别名
+    www: 'fztest' //如果 mymod.js 是在根目录，也可以不用设定别名
+    //,mod1: 'admin/mod1' //相对于上述 base 目录的子目录
+});
+
+//你也可以忽略 base 设定的根目录，直接在 extend 指定路径（主要：该功能为 layui 2.2.0 新增）
+layui.extend({
+    mod2: '{/}http://cdn.xxx.com/lib/mod2' // {/}的意思即代表采用自有路径，即不跟随 base 路径
+})
+
+//使用拓展模块
+layui.use(['www','jquery'], function(){
+    var $=layui.jquery;
+    var mymod = layui.www;
+    
+        //,mod1 = layui.mod1
+       // ,mod2 = layui.mod2;
+    var a=123;
+    var b=new Array();
+    var arr=[];
+    console.log(b=='');
+
+    $(".add").click(function(){
+        $(".li").append('<li>I am new item.<button class="delete">Delete</button></li>');
+    });
+    $(".li").on("click",".delete",function(){
+        $(this).parent().remove();
+    });
+
+    $("button").on("click",function(){
+        $("#from input").each(function(){
+            console.log($(this));
+            var bind=$(this).data("bind");
+            var val=$(this).val();
+            console.log(bind+':',$(this).val())
+        })
+        $("#from").append("<input data-bind='test'>")
+    })
+    //console.log(arr,arr.length)
+   // mymod.hello('World!'); //弹出 Hello World!
+});
+</script>
+</html>

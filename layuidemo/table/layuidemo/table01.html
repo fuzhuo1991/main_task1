@@ -1,0 +1,225 @@
+﻿<!--主菜单的表格-->
+<table class="layui-hide tab_skin" id="table_min" lay-filter='my_table_filter'></table>
+
+<div class="max_div" id='cp_tanchuang' style="display: none;">
+	<div class="min_div" id="cp_iddiv">
+		<span class="min_span">ID</span>
+		<input type="text" class="min_input" id="cp_ID" readonly="readonly" />
+	</div>
+	<div class="min_div">
+		<span class="min_span">用户名</span>
+		<input type="text" class="min_input" id="cp_username" />
+	</div>
+	<div class="min_div">
+		<span class="min_span">用户ID</span>
+		<input type="text" class="min_input" id="cp_userid" />
+	</div>
+	<div class="min_div">
+		<span class="min_span">用户密码</span>
+		<input type="text" class="min_input" id="cp_userpwd" />
+	</div>
+</div>
+
+<script type="text/javascript" src="script/jquery-1.11.2.js"></script>
+<link rel="stylesheet" href="../grid_css/mine.css" />
+<script type="text/javascript" src="../grid_js/mine.js"></script>
+
+<script type="text/html" id="titleTpl">
+	{{d.LAY_TABLE_INDEX+1}}
+</script>
+<script type="text/html" id="barDemo">
+	<a class="layui-btn layui-btn-primary layui-btn-xs select_btn" lay-event="detail">查</a>
+	<a class="layui-btn layui-btn-xs update_btn" lay-event="edit">改</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs delete_btn" lay-event="del">删</a>
+
+</script>
+
+<script>
+	//定义表格
+	layui.use(['table'], function() {
+		var q_data = {
+			tablename: 'M_USERS', //"WX_OUT_OILLIST",//"M_USERS",YF_ORG_STATION
+			action: 0,
+		}; //查询
+		//var data = { tablename: "M_USERS", action: 1, bean: { username: 'wxd1', userid: 'wxd1', userpwd: 'wxd1' } };//新增
+		//var data = { tablename: "M_USERS", action: 2, bean: { username: 'wxd1', userid: 'wxd2', userpwd: 'wxd3' }, condition: "id='20180504141613'" };//修改
+		var table = layui.table;
+
+		table.render({
+			elem: '#table_min',
+			url: 'http://222.163.24.203:8282/DataUI/QueryData.ashx',
+			where: {
+				option: JSON.stringify(q_data)
+			},
+			method: 'post',
+			cellMinWidth: 80, //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+			skin: 'line',
+			loading: true,
+			page: {
+				layout: ['prev', 'page', 'next'],
+				prev: '《上一页',
+				next: '下一页》',
+				theme: '#0099ff',
+			},
+			//data: data_01,
+			cols: [
+				[{
+					field: 'main_id',
+					width: '13%',
+					title: '序号',
+					templet: '#titleTpl'
+				}, {
+					field: 'ID',
+					width: '20%',
+					title: 'ID',
+					event: 'menu_name',
+					style: 'cursor: pointer;'
+				}, {
+					field: 'USERNAME',
+					width: '25%',
+					title: '用户名',
+				}, {
+					field: 'USERID',
+					width: '15%',
+					title: '用户ID'
+				}, {
+					field: 'USERPWD',
+					title: '用户密码',
+					width: '15%',
+				}, {
+					field: 'caozuo',
+					title: '操作',
+					align: 'center',
+					toolbar: '#barDemo'
+				}]
+			],
+			done: function(res, curr, count) {
+				//如果是异步请求数据方式，res即为你接口返回的信息。
+				//如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+				console.log(res);
+
+				//得到当前页码
+				//console.log(curr);
+
+				//得到数据总量
+				//console.log(count);
+				//console.log('执行了异步请求');
+
+				//鼠标悬浮行事件
+				$('tr').hover(function() {
+
+					//悬浮行变背景色
+					$('tr').css({
+						'background': ''
+					});
+					$(this).css({
+						'background': '#ccffff'
+					});
+					$('tr:first').css({
+						'background': ''
+					})
+
+					//悬浮行操作按钮变背景色
+					$('.layui-btn-xs').css({
+						'background': '',
+						'color': ''
+					});
+					var caozuo = $(this).children('td:last-child').children('div');
+					caozuo.children('.select_btn').css({
+						'background': '#ff3300',
+						'color': '#ffffff'
+					});
+					caozuo.children('.update_btn').css({
+						'background': '#0099ff',
+						'color': '#ffffff'
+					});
+					caozuo.children('.delete_btn').css({
+						'background': '#ffd700',
+						'color': '#ffffff'
+					})
+
+				});
+			}
+		});
+
+		//监听工具条
+		table.on('tool(my_table_filter)', function(obj) {
+			var data = obj.data;
+			if(obj.event === 'detail') { //-------------------查看操作
+				//layer.msg('ID：' + data.ID + ' 的查看操作');
+				layer.open({
+					type: 1,
+					title: ['查看信息', 'font-size:18px;background:#0099FF;color:white;'],
+					area: ['350px', '350px'], //宽高
+					shade: [0.1, '#ffffff'],
+					anim: 0,
+					move: false,
+					skin: 'myskin',
+					content: $('#cp_tanchuang').html()
+				});
+				create_tanchuang_data(data);
+
+				$('.myskin .min_input').attr('readonly', 'readonly');
+
+			} else if(obj.event === 'del') { //---------------删除操作
+				layer.confirm('真的删除行么', function(index) {
+					obj.del();
+					layer.close(index);
+				});
+			} else if(obj.event === 'edit') { //--------------编辑操作
+				layer.open({
+					type: 1,
+					title: ['编辑信息', 'font-size:18px;background:#0099FF;color:white;'],
+					area: ['350px', '350px'], //宽高
+					btn: ['确认保存'],
+					yes: function(index, layero) {
+						//按钮【按钮一】的回调
+						//修改数据
+						var tc_newval = get_tanchuang_data();
+						var bean = {
+							//ID: tc_newval.msg01,
+							USERNAME: tc_newval.msg02,
+							USERID: tc_newval.msg03,
+							USERPWD: tc_newval.msg04
+						};
+						var opdata = {
+							tablename: "M_USERS",
+							action: 2,
+							condition: "id='" + data.ID + "'",
+							bean: JSON.stringify(bean)
+						};
+						//console.log(opdata);
+						webajax('http://222.163.24.203:8282/DataUI/QueryData.ashx', {
+							option: opdata
+						}, function(res) {
+							//console.log(res);
+						})
+
+						//执行重载
+						table.reload('table_min', {
+							page: {
+								curr: 1 //重新从第 1 页开始
+							}
+						});
+
+						layer.close(index);
+					},
+					btnAlign: 'c',
+					shade: [0.1, '#ffffff'],
+					anim: 0,
+					move: false,
+					skin: 'myskin',
+					content: $('#cp_tanchuang').html()
+				});
+				//显示出要修改的表格内容
+				create_tanchuang_data(data);
+				//隐藏id行
+				$('.myskin #cp_iddiv').css({
+					'display': 'none'
+				});
+
+			} 
+		});
+
+	});
+</script>

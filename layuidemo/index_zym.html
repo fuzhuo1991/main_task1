@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="renderer" content="webkit"><!--默认极速模式-->
+		<meta name="renderer" content="webkit|ie-comp|ie-stand"><!--默认极速模式-->
+		<title></title>
+		<!--<link rel="stylesheet" type="text/css" href="css/index.css"/>-->
+		<!--<link rel="stylesheet" type="text/css" href="css/mediafix.css"/><!--低分辨率调整-->
+		<link rel="stylesheet" type="text/css" href="zym/css/index.css"/>
+		<!--<link rel="stylesheet" type="text/css" href="css/foundation-datepicker.css"/>-->
+		<script src="grid_js/mine.js"></script>
+		<link href="grid_css/mine.css"/>
+		<link href="layui/css/layui.css" rel="stylesheet" media="all" />
+    	<script src="layui/layui.js"></script>
+		<!--<script src="js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script src="js/echarts.min.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script src="js/jraph.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script src="js/ming_z.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script src="js/foundation-datepicker.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script src="js/common.js" type="text/javascript" charset="utf-8"></script>-->
+		
+		
+	</head>
+<body>
+	<!--左侧栏-->
+	<div class="leftbar">
+		<div class="toltit">
+			<img src="img/p-1.png" />
+			<div>
+				<span class="nav-tit yafei_e">YAFEI TECHNOLOGY</span>
+				<p class="yafei_c">亚飞科技</p>
+			</div>
+		</div>
+		<div class="navbtn">
+			<span class="nav-tit">关闭侧栏</span><i class="navslide"></i>
+		</div>
+		
+		
+		<div class="basic_setting"> <!--class="layui-side layui-bg-black">-->
+            <h1></h1>
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    
+                </ul>
+            </div>
+        </div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<!--右侧-->
+	<div class="r_body">
+		<!--头部-->
+		<div class="top clearfix">
+			<a href="" class="home"><i class="home-i"></i>首页</a>
+			<div class="user">
+				<div class="userctr">
+					<!--用户名-->
+					<h1><i class="ar_down"></i></h1>
+					<ul>
+						<li><a href="">
+							<i class="psw-i"></i>重置密码
+						</a></li>
+					</ul>
+				</div>
+				<a href="">
+					<i class="out"></i>退出
+				</a>
+			</div>
+		</div>
+		
+		<div >
+            <div class="layui-tab layui-tab-card" lay-allowclose="true" lay-filter="laytitle">
+                <ul class="layui-tab-title">
+                <!--选项卡-->    
+                </ul>
+                <div class="layui-tab-content" style="height: 100%;">
+        		<!--网页-->
+        	
+                </div>
+            </div>  
+        </div>
+        
+		<!--底部-->
+		<!--<div class="footer">© 2018  吉林省亚飞科技有限公司</div>-->
+		
+		
+	</div>
+		
+</body>
+<script>
+        //JavaScript代码区域
+//http://127.0.0.1:8020/main_task1/layuidemo/layui/lay/modules/base.js
+        layui.config({
+            base: '/main_task_中/layuidemo/layui/lay/modules/',
+            ming:'/main_task_中/layuidemo/layui/lay/modules/',
+            ming_z:'/main_task_中/layuidemo/layui/lay/modules/'
+        }).extend({ //设定模块别名
+  				base:"base",
+  				ming:'ming',
+  				ming_z:'ming_z'
+        });
+        layui.use(['element', 'base','ming','jquery','ming_z'], function () {
+        	
+        	var $=layui.jquery;
+			var ming = layui.ming;
+            var base = layui.base;
+            var ming_z = layui.ming_z;
+            var data = { tablename: "m_cmenu", action: 0 };//查询
+            webajax("http://222.163.24.203:8282/DataUI/QueryData.ashx",//跨域
+//          webajax("http://localhost:52738/DataUI/QueryData.ashx",
+                { option: data },
+                function (res) {
+                    console.log(res);
+                });
+ var element = layui.element;
+var form = layui.form
+, layer = layui.layer;
+ var active = {
+      tabAdd: function () {
+          //新增一个Tab项
+          element.tabAdd('laytitle', {
+              title: '新选项' + (Math.random() * 1000 | 0) //用于演示
+            , content: '内容123' + (Math.random() * 1000 | 0)
+            , id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
+          })
+      }
+, tabDelete: function (othis) {
+    //删除指定Tab项
+    element.tabDelete('laytitle', '44'); //删除：“商品管理”
+    othis.addClass('layui-btn-disabled');
+}
+, tabChange: function () {
+    //切换到指定Tab项
+    element.tabChange('laytitle', '22'); //切换到：用户管理
+}
+  };
+
+  element.on('tab(laytitle)', function (data) {
+      //alert(data.index+"-click");
+      console.log(this); //当前Tab标题所在的原始DOM元素
+      console.log(data.index); //得到当前Tab的所在下标
+      console.log(data.elem); //得到当前的Tab大容器
+  });
+
+  $('.site-demo-active').on('click', function () {
+      var othis = $(this), type = othis.data('type');
+      active[type] ? active[type].call(this, othis) : '';
+  });
+
+    //Hash地址的定位
+  var layid = location.hash.replace(/^#test=/, '');
+  element.tabChange('test', layid);
+
+  element.on('tab(test)', function (elem) {
+      location.hash = 'test=' + $(this).attr('lay-id');
+  });
+  
+  
+//$(".layui-nav-child a").click(function () {
+//    var layid = ($(this).attr("lay-id"));
+//    var title = ($(this)).text();
+//    element.tabAdd('laytitle', {
+//        title:title //用于演示
+//        //, content: '内容123' + (Math.random() * 1000 | 0)
+//          , content: layid
+//          , id: layid //实际使用一般是规定好的id，这里以时间戳模拟下
+//    })
+//	  var layids = $("[lay-id='" + layid + "']");
+//    layids.addClass('layui-this');
+//    var dislist = $(".layui-tab-item");
+//    for (var i = 0; i <= dislist.length; i++) {
+//        if ($(dislist[i]).html() == layid){
+//            $(dislist[i]).addClass("layui-show");
+//            $(dislist[i]).load('test1.html');
+//        }
+//    }
+//})
+      
+    var element = layui.element;
+    var $ = layui.jquery;
+    var form = layui.form
+, layer = layui.layer;
+  
+//   $(".layui-nav-child a").on('click', function () {
+//          var title = $(this).text();
+//          var url = $(this).data('url');
+//          element.tabAdd('laytitle', {
+//              title: title,//用于演示
+//              id: url
+//          })
+//          $(".layui-tab-title li").on("click", function () {
+//          	console.log($(this))
+//            //  $(".layui-tab-item").load($(this).attr('lay-id')+'.html');
+//          })
+//      })
+
+});
+
+    </script>
+    <script type="text/javascript">
+    </script>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link type="text/css" rel="stylesheet" href="zym/css/index.css" />
+		<script src="zym/zym_js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="zym/zym_js/ming_z.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<!--图片-->
+		<div class="main_pt">
+			<div class="welcome">欢迎使用中商基管理平台</div>
+			<div class="warntip"><a href="">销售统计<span>（一个周内）</span></a></div>
+			<div class="m_pad">
+				<!--数据总览-->
+				<div class="ctrbox">
+					<div class="ctrper">
+						<a href="">
+							<div class="ctr_ibox ctrbg1">
+								<img src="img/date.png" alt="" />
+							</div>
+							<div class="ctr_tx">
+								<h1>日期</h1>
+								<p id="time_d">2018-04-09</p>
+							</div>
+						</a>
+					</div>
+					<div class="ctrper">
+						<a href="">
+							<div class="ctr_ibox ctrbg2">
+								<img src="img/fund.png" alt="" />
+							</div>
+							<div class="ctr_tx">
+								<h1>微信销售笔数</h1>
+								<p id="w_x_b">1360</p>
+							</div>
+						</a>
+					</div>
+					<div class="ctrper">
+						<a href="">
+							<div class="ctr_ibox ctrbg3">
+								<img src="img/形状-471.png" alt="" />
+							</div>
+							<div class="ctr_tx">
+								<h1>优惠券使用金额（元）</h1>
+								<p id="y_s_e">6000.00</p>
+							</div>
+						</a>
+					</div>
+					<div class="ctrper">
+						<a href="">
+							<div class="fund">
+								<p id="s_x_ze">158605.76</p>
+								<h1><i class="money_i"></i>实际销售总金额（元）</h1>
+							</div>
+						</a>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		<!--表格-->
+		<div class="table">
+			<div class="table_x table_h">
+				<div class="table_x_t">
+					<nav>
+						<div class="day_s">
+							<span id="today">今天</span>
+							<i class="day_c1"></i>
+							<span id="yesterday">昨天</span>
+							<i class="day_c2"></i>
+							<span id="seven_days" checked="checked">近七天</span>
+							<i class="day_c3"></i>
+							<span id="thirty_days">近30天</span>
+							<i class="day_c4"></i>
+						</div>
+						<div class="case_f">
+							<!--<input type="" name="" class="textbox_j" value="" />
+							<img src="img/矩形-10-拷贝-4.png"/>-->
+							<div class="sch_line date clearfix">
+								<div class="fill">
+									<div  class="select fill_ipt w160">
+										<input type="text"  id="dpd1">
+										<img src="img/矩形-10-拷贝-4.png"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="case_qb">
+							<div class="fill">
+								<div  class="select fill_ipt w160">
+									<input type="text" value="" hidden="hidden" />
+									<i>></i>
+									<span class="checkspan">点击下拉框选择</span>
+									<ul>
+										<i></i>
+										<li>1111</li>
+										<li>222</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="expert_find">
+							<input type="button" value="高级查找" class="button_gj"/>
+						</div>
+					</nav>
+				</div>
+			</div>
+			<div class="table_y table_h">
+				<div class="table_y1">
+					<div class="table_y1_left t_a">
+						<div class="n_main">
+							<a>
+								<input type="button" value="销售金额" class="button_gj_1"/>
+								<div id="main" class="main" style="width: 500px;height:350px;"></div>
+							</a>
+						</div>
+					</div>
+					<div class="table_y_t t_a">
+						<div class="table_y_t1">
+							<a>
+							<table class="tr_s_ta"><!--frame="box"-->
+								<tr class="tr_b tr_b">
+									<th>销售统计（一周内）</th>
+								</tr>
+								<tr class="tr_b tr_g">
+									<th>单位名称</th>
+									<th>微信销售笔数</th>
+									<th>优惠券使用金额（元）</th>
+									<th>实际销售总金额（元）</th>
+								</tr>
+								<tr class="tr_s tr_b" id="tr_z">
+									<td>伊通河加油站</td>
+									<td id="w_x_b_v1">1000</td>
+									<td id="y_s_e1">50.00</td>
+									<td id="s_x_ze1">1050.00</td>
+								</tr>
+								<tr class="tr_s tr_g" id="tr_z">
+									<td>合心加油站</td>
+									<td  id="w_x_b_v2">101</td>
+									<td id="y_s_e2">3550.00</td>
+									<td id="s_x_ze2">105100.00</td>
+								</tr>
+								<tr class="tr_s tr_b" id="tr_z">
+									<td>万达加油站</td>
+									<td  id="w_x_b_v3">1000</td>
+									<td id="y_s_e3">50.00</td>
+									<td id="s_x_ze3">1050.00</td>
+								</tr>
+								<tr class="tr_s tr_g" id="tr_z">
+									<td>白云加油站</td>
+									<td  id="w_x_b_v4">1015</td>
+									<td id="y_s_e4">3550.00</td>
+									<td id="s_x_ze4">105100.00</td>
+								</tr>
+								<tr class="tr_s tr_b" id="tr_z">
+									<td>春城加油站</td>
+									<td  id="w_x_b_v5">1000</td>
+									<td id="y_s_e5">50.00</td>
+									<td id="s_x_ze5">1050.00</td>
+								</tr>
+							</table>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--底部-->
+		<div class="footer">© 2018  吉林省亚飞科技有限公司</div>
+	</body>
+</html>
+<script type="text/javascript">
+	// 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        //今天周几
+        var week = "周" + "日一二三四五六".split("")[new Date().getDay()];
+        //昨天周几
+		var yes_week = "周" + "日一二三四五六".split("")[new Date().getDay()-1];
+  		
+  		// 指定图表的配置项和数据
+	        var option = {
+			    title: {
+			        text: '销售单数',
+			        x: 'center'
+			    },
+			    tooltip : {
+			       /* trigger: 'axis',*/
+			        axisPointer: {
+			            type: 'cross'/*,
+			            label: {
+			                backgroundColor: '#6a7985'
+			            }*/
+			        }
+			    },
+			    legend: {
+			        data:['油品','购卷','充值'],
+			        x: 'right'
+			    },
+			  /*  toolbox: {
+			        feature: {
+			            saveAsImage: {}
+			        }
+			    },*/
+			    grid: {
+			        left: '3%',
+			        right: '4%',
+			        bottom: '3%',
+			        containLabel: true
+			    },
+			    xAxis : [
+			        {
+			            type : 'category',
+			            boundaryGap : false,
+			            data : ['周一','周二','周三','周四','周五','周六','周日']
+			        }
+			    ],
+			    yAxis : [
+			        {
+			            type : 'value'
+			        }
+			    ],
+			    series : [
+			        {
+			            name:'油品',
+			            type:'line',
+			            /*stack: '总量',*/
+			            areaStyle: {normal: {}},
+			            data:[820, 932, 901, 934, 1490, 1330, 1320],
+			            markPoint: {
+		                    data: [
+		                        {type: 'max', name: '最大值'}
+		                    ]
+		                },
+			            itemStyle:{color:'#9198b2'
+			            	/*normal:{
+			            		lineStyle:{
+			            			color:'#9198b2'
+			            		}
+			            	}*/
+			            }
+			        },
+			        {
+			            name:'购卷',
+			            type:'line',
+			            areaStyle: {normal: {}},
+			            data:[420, 432, 401, 434, 990, 710, 720],
+			            markPoint: {
+		                    data: [
+		                        {type: 'max', name: '最大值'}
+		                    ]
+		               },
+			            itemStyle:{
+			            	color:'#98eed4'
+			            }
+			        },
+			        {
+			            name:'充值',
+			            type:'line',
+			            /*label: {
+			                normal: {
+			                    show: true,
+			                    position: 'top'
+			                }
+			            },*/
+			            areaStyle: {normal: {}},
+			            data:[150, 232, 201, 154, 590, 330, 410],
+			            markPoint: {
+		                    data: [
+		                        {type: 'max', name: '最大值'}
+		                    ]
+		                },
+			            itemStyle:{
+			            	color:'#79c9eb'
+			            }
+			        }
+			    ]
+			};
+	
+	
+	        // 使用刚指定的配置项和数据显示图表。
+	        myChart.setOption(option);
+</script>
